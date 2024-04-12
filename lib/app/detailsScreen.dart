@@ -48,7 +48,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   decoration: InputDecoration(
                     labelText: 'Patient id',
                     hintText: 'Patient id',
-                    prefixIcon: Icon(Icons.person),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
@@ -75,7 +74,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   decoration: InputDecoration(
                     labelText: 'Patient Age',
                     hintText: 'Patient Age',
-                    prefixIcon: Icon(Icons.person),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
@@ -102,7 +100,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   decoration: InputDecoration(
                     labelText: 'Blood Pressure',
                     hintText: 'Blood Pressure',
-                    prefixIcon: Icon(Icons.person),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
@@ -129,7 +126,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   decoration: InputDecoration(
                     labelText: 'Temperature',
                     hintText: 'Temperature',
-                    prefixIcon: Icon(Icons.person),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
@@ -156,7 +152,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   decoration: InputDecoration(
                     labelText: 'Oxygen Level',
                     hintText: 'Oxygen Level',
-                    prefixIcon: Icon(Icons.person),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
