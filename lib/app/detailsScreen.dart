@@ -24,7 +24,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Final Project'),
+        title: Text('HealthSync Emergency'),
       ),
       body: Form(
         key: _formKey,
@@ -164,7 +164,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     Container(
                       margin: EdgeInsets.symmetric(vertical: 10),
                       child: Text(
-                        'Select Hospital',
+                        'Select EKG file',
                         style: TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 18),
                       ),
