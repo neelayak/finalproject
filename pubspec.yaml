@@ -41,6 +41,7 @@ dependencies:
   firebase_database: ^10.5.1
   flutter_login: ^5.0.0
   file_picker: ^8.0.0+1
+  syncfusion_flutter_datagrid: ^25.1.40
 dev_dependencies:
   flutter_test:
     sdk: flutter

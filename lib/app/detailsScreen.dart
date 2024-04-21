@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
@@ -21,7 +23,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
   String? patient_id;
   String? filename;
   String? patient_age;
-
+  String? fileurl;
+  var hospita = ['Hospital 1', 'Hospital 2', 'Hospital 3'];
+  String? selected_hospital;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -85,7 +89,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     return null;
                   },
                   onSaved: (value) {
-                    patient_id = value;
+                    patient_age = value;
                   },
                 ),
                 Container(
@@ -187,11 +191,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                         padding: EdgeInsets.symmetric(horizontal: 12.0),
                         child: DropdownButton<String>(
                           value: _selectedItem,
-                          items: <String>[
-                            'Hospital 1',
-                            'Hospital 2',
-                            'Hospital 3'
-                          ].map((String value) {
+                          items: hospita.map((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(value),
@@ -200,6 +200,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                           onChanged: (newValue) {
                             setState(() {
                               _selectedItem = newValue;
+                              selected_hospital = newValue;
                             });
                           },
                           hint: Text('Select an option'),
@@ -234,6 +235,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                               if (result != null) {
                                 File file = File(result.files.single.path!);
                                 setState(() {
+                                  uploadFile(file);
                                   filename = basename(file.path);
                                 });
                               } else {
@@ -255,6 +257,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       print('Blood Pressure: $bloodPressure');
                       print('Temperature: $temperature');
                       print('Oxygen Level: $oxygenLevel');
+                      sendData();
                     }
                   },
                   child: Text('Submit'),
@@ -265,5 +268,38 @@ class _DetailsScreenState extends State<DetailsScreen> {
         ),
       ),
     );
+  }
+
+  void sendData() async {
+    DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
+    databaseReference.child('users').push().set({
+      'id': patient_id,
+      'temperature': temperature,
+      'oxygen_lvl': oxygenLevel,
+      'patient_age': patient_age,
+      'blood_pressure': bloodPressure,
+      'hospital_name': selected_hospital,
+      "file_link": fileurl
+
+      // Add more fields as needed
+    }).then((_) {
+      print('Data sent successfully!');
+    }).catchError((error) {
+      print('Failed to send data: $error');
+    });
+  }
+
+  void uploadFile(File file) async {
+    try {
+      Reference storageReference = FirebaseStorage.instance
+          .ref()
+          .child('uploads/${file.path.split('/').last}');
+      UploadTask uploadTask = storageReference.putFile(file);
+      String downloadURL = await storageReference.getDownloadURL();
+      fileurl = downloadURL;
+      await uploadTask.whenComplete(() => print('File uploaded successfully'));
+    } catch (e) {
+      print('Failed to upload file: $e');
+    }
   }
 }
