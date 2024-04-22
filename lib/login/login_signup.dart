@@ -105,7 +105,7 @@ class _LoginSignupState extends State<LoginSignup> {
         } else {
           Navigator.of(context).pushReplacement(
             FadePageRoute(
-              builder: (context) => WebsiteDashboard(),
+              builder: (context) => UserDetailsScreen(),
             ),
           );
         }

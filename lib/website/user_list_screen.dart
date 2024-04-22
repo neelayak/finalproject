@@ -15,8 +15,12 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        backgroundColor: Colors.blueAccent,
+        title: Text('Hospita Database'),
+      ),
       body: Container(
+        //  height: 300,
         child: FutureBuilder(
           future: fetchData(),
           builder: (context, snapshot) {
@@ -33,13 +37,20 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                       height: 100,
                       color: Colors.amber,
                       child: Column(
-                        children: [Text(list[index].hospitalName!)],
+                        children: [
+                          Text(list[index].id!),
+                          Text(list[index].hospitalName!),
+                          Text(list[index].bloodPressure!),
+                          Text(list[index].age!),
+                          Text(list[index].oxygenLvl!),
+                          Text(list[index].temperature!),
+                        ],
                       ),
                     ),
                   );
                 },
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4, childAspectRatio: 5 / 6
+                    crossAxisCount: 1, childAspectRatio: 5 / 3
                     // crossAxisSpacing: 5.0,
                     // mainAxisSpacing: 5.0,
                     ),
@@ -77,9 +88,6 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
       });
       print(data.id);
       list.add(data);
-      setState(() {
-        print(list.toString());
-      });
     });
     return list;
   }

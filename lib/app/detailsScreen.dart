@@ -5,6 +5,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:path/path.dart';
 
 class DetailsScreen extends StatefulWidget {
@@ -16,16 +17,17 @@ class DetailsScreen extends StatefulWidget {
 
 class _DetailsScreenState extends State<DetailsScreen> {
   final _formKey = GlobalKey<FormState>();
-  String? bloodPressure;
-  String? temperature;
-  String? oxygenLevel;
+  String? bloodPressure = '';
+  String? temperature = '';
+  String? oxygenLevel = '';
   String? _selectedItem;
-  String? patient_id;
+  String? patient_id = '';
   String? filename;
-  String? patient_age;
-  String? fileurl;
+  String? patient_age = '';
+  String? fileurl = '';
   var hospita = ['Hospital 1', 'Hospital 2', 'Hospital 3'];
-  String? selected_hospital;
+  String? selected_hospital = 'Hospital 1';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -257,7 +259,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       print('Blood Pressure: $bloodPressure');
                       print('Temperature: $temperature');
                       print('Oxygen Level: $oxygenLevel');
-                      sendData();
+                      Future.delayed(Duration(seconds: 2), () {
+                        sendData();
+                      });
                     }
                   },
                   child: Text('Submit'),
@@ -283,9 +287,23 @@ class _DetailsScreenState extends State<DetailsScreen> {
 
       // Add more fields as needed
     }).then((_) {
-      print('Data sent successfully!');
+      Fluttertoast.showToast(
+          msg: "Data Sent",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.green,
+          textColor: Colors.white,
+          fontSize: 16.0);
     }).catchError((error) {
-      print('Failed to send data: $error');
+      Fluttertoast.showToast(
+          msg: "Error",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0);
     });
   }
 
