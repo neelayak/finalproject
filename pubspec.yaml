@@ -43,6 +43,7 @@ dependencies:
   file_picker: ^8.0.0+1
   syncfusion_flutter_datagrid: ^25.1.40
   fluttertoast: ^8.2.5
+  flutter_cached_pdfview: ^0.4.2
 dev_dependencies:
   flutter_test:
     sdk: flutter
