@@ -39,6 +39,7 @@
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
+
 </head>
 <body>
   <script>
@@ -55,6 +56,25 @@
         }
       });
     });
+  </script>
+
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-storage.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-analytics.js"></script>
+  <script>
+    var firebaseConfig = {
+      apiKey: "AIzaSyD4NflasuSZ-TghZpioROF7vVM7Cda_dM8",
+      authDomain: "finalproject-29e57.firebaseapp.com",
+      databaseURL: "https://finalproject-29e57-default-rtdb.firebaseio.com",
+      projectId: "finalproject-29e57",
+      storageBucket: "finalproject-29e57.appspot.com",
+      messagingSenderId: "921711689338",
+      appId: "1:921711689338:web:b6b58419b2d6954d4785c3",
+      measurementId: "G-Q8KX5XE8B6"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
   </script>
 </body>
 </html>

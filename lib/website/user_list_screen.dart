@@ -1,7 +1,9 @@
+import 'package:finalproject/website/dashboardscreen.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'dart:io';
 import '../datamodel/user_datamodel.dart';
 
@@ -13,6 +15,8 @@ class UserDetailsScreen extends StatefulWidget {
 }
 
 class _UserDetailsScreenState extends State<UserDetailsScreen> {
+  final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,12 +45,8 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute<dynamic>(
-                                builder: (_) => PDF().cachedFromUrl(
-                                  list[index].fileLink!,
-                                  placeholder: (progress) =>
-                                      Center(child: Text('$progress %')),
-                                  errorWidget: (error) =>
-                                      Center(child: Text(error.toString())),
+                                builder: (_) => DashboardScreen(
+                                  url: list[index].fileLink!,
                                 ),
                               ));
                         },

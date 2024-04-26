@@ -39,11 +39,12 @@ dependencies:
   firebase_auth: ^4.19.1
   firebase_storage: ^11.7.1
   firebase_database: ^10.5.1
-  flutter_login: ^5.0.0
+  flutter_login: ^4.1.1
   file_picker: ^8.0.0+1
-  syncfusion_flutter_datagrid: ^25.1.40
+  syncfusion_flutter_datagrid: ^24.2.9
   fluttertoast: ^8.2.5
   flutter_cached_pdfview: ^0.4.2
+  syncfusion_flutter_pdfviewer: ^24.2.9
 dev_dependencies:
   flutter_test:
     sdk: flutter

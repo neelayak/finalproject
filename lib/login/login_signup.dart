@@ -52,7 +52,7 @@ class _LoginSignupState extends State<LoginSignup> {
   @override
   Widget build(BuildContext context) {
     return FlutterLogin(
-      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+      // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
       navigateBackAfterRecovery: true,
       title: '',
       logo: const AssetImage('assets/icon3.png'),

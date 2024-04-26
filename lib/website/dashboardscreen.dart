@@ -1,5 +1,11 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 
 class DashboardScreen extends StatefulWidget {
   String? url;
@@ -10,21 +16,47 @@ class DashboardScreen extends StatefulWidget {
 }
 
 class _DashboardScreenState extends State<DashboardScreen> {
+  Uint8List? _documentBytes;
+  String path =
+      'https://firebasestorage.googleapis.com/v0/b/finalproject-29e57.appspot.com/o/uploads%2FUntitled-2.pdf?alt=media&token=2d85ab83-523d-4916-be02-76784b460ff5';
+  @override
+  void initState() {
+    getPdfBytes();
+    super.initState();
+  }
+
+  void getPdfBytes() async {
+    if (kIsWeb) {
+      firebase_storage.Reference pdfRef =
+          firebase_storage.FirebaseStorage.instanceFor(
+                  bucket: 'finalproject-29e57.appspot.com')
+              .refFromURL(path);
+      //size mentioned here is max size to download from firebase.
+      await pdfRef.getData(104857600).then((value) {
+        _documentBytes = value;
+        setState(() {});
+      });
+    } else {
+      HttpClient client = HttpClient();
+      final Uri url = Uri.base.resolve(path);
+      final HttpClientRequest request = await client.getUrl(url);
+      final HttpClientResponse response = await request.close();
+      _documentBytes = await consolidateHttpClientResponseBytes(response);
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    Widget child = const Center(child: CircularProgressIndicator());
+    if (_documentBytes != null) {
+      child = SfPdfViewer.memory(
+        _documentBytes!,
+      );
+    }
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.blueAccent,
-        title: Text('Hospita Database'),
-      ),
-      body: Container(
-        color: Colors.amber,
-        child: PDF().cachedFromUrl(
-          'http://africau.edu/images/default/sample.pdf',
-          placeholder: (progress) => Center(child: Text('$progress %')),
-          errorWidget: (error) => Center(child: Text(error.toString())),
-        ),
-      ),
+      appBar: AppBar(title: const Text('Syncfusion Flutter PDF Viewer')),
+      body: child,
     );
   }
 }
