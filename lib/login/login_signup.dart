@@ -97,19 +97,17 @@ class _LoginSignupState extends State<LoginSignup> {
         return _signupUser(signupData);
       },
       onSubmitAnimationCompleted: () {
-        // if (!Platform.isAndroid) {
-        //   Navigator.of(context).pushReplacement(
-        //     FadePageRoute(
-        //       builder: (context) => DetailsScreen(),
-        //     ),
-        //   );
-        // } else {
         Navigator.of(context).pushReplacement(
           FadePageRoute(
-            builder: (context) => UserDetailsScreen(),
+            builder: (context) => DetailsScreen(),
           ),
         );
-        //  }
+
+        // Navigator.of(context).pushReplacement(
+        //   FadePageRoute(
+        //     builder: (context) => UserDetailsScreen(),
+        //   ),
+        // );
       },
       onRecoverPassword: (name) {
         debugPrint('Recover password info');
