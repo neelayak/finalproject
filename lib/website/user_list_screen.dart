@@ -1,9 +1,13 @@
 import 'package:finalproject/website/dashboardscreen.dart';
+import 'package:finalproject/website/pinchpage.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:path_provider/path_provider.dart';
+//import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'dart:io';
 import '../datamodel/user_datamodel.dart';
 
@@ -15,7 +19,7 @@ class UserDetailsScreen extends StatefulWidget {
 }
 
 class _UserDetailsScreenState extends State<UserDetailsScreen> {
-  final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
+//  final GlobalKey<SfPdfViewerState> _pdfViewerKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +34,7 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
         child: FutureBuilder(
           future: fetchData(),
           builder: (context, snapshot) {
-            List<UserDataModel> list = snapshot.data;
+            List<UserDataModel> list = snapshot.data!;
             if (snapshot.hasData) {
               return Container(
                   height: 300,
@@ -45,10 +49,18 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute<dynamic>(
-                                builder: (_) => DashboardScreen(
+                                builder: (_) => PinchPage(
                                   url: list[index].fileLink!,
                                 ),
                               ));
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute<dynamic>(
+                          //       builder: (_) => SfPdfViewer.network(
+                          //         'https://cdn.syncfusion.com/content/PDFViewer/flutter-succinctly.pdf',
+                          //         key: _pdfViewerKey,
+                          //       ),
+                          //     ));
                         },
                         child: Card(
                           shadowColor: Colors.green,
@@ -185,5 +197,24 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
       list.add(data);
     });
     return list;
+  }
+
+  Future<void> downloadFileExample(String url) async {
+    //First you get the documents folder location on the device...
+    Directory appDocDir = await getApplicationDocumentsDirectory();
+    //Here you'll specify the file it should be saved as
+    File downloadToFile = File('${url}/downloaded-pdf.pdf');
+    //Here you'll specify the file it should download from Cloud Storage
+    String fileToDownload = 'uploads/uploaded-pdf.pdf';
+
+    //Now you can try to download the specified file, and write it to the downloadToFile.
+    try {
+      await FirebaseStorage.instance
+          .ref(fileToDownload)
+          .writeToFile(downloadToFile);
+    } on FirebaseException catch (e) {
+      // e.g, e.code == 'canceled'
+      print('Download error: $e');
+    }
   }
 }
