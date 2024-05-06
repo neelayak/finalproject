@@ -22,7 +22,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   String? oxygenLevel = '';
   String? _selectedItem;
   String? patient_id = '';
-  String? filename='Select EKG file';
+  String? filename = 'Select EKG file';
   String? patient_age = '';
   String? fileurl = '';
   var hospita = ['Hospital 1', 'Hospital 2', 'Hospital 3'];
@@ -273,6 +273,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       print('Oxygen Level: $oxygenLevel');
                       Future.delayed(Duration(seconds: 2), () {
                         sendData();
+                        setState(() {
+                          _oxygenLevelController.clear();
+                          _bloodPressureController.clear();
+                          _patient_ageController.clear();
+                          _patient_idController.clear();
+                          _temperatureController.clear();
+                          fileurl = "Select EKG file";
+                        });
                       });
                     }
                   },
@@ -307,14 +315,6 @@ class _DetailsScreenState extends State<DetailsScreen> {
           backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0);
-      setState(() {
-        _oxygenLevelController.clear();
-        _bloodPressureController.clear();
-        _patient_ageController.clear();
-        _patient_idController.clear();
-        _temperatureController.clear();
-        fileurl="Select EKG file";
-      });
     }).catchError((error) {
       Fluttertoast.showToast(
           msg: "Error",
