@@ -22,11 +22,18 @@ class _DetailsScreenState extends State<DetailsScreen> {
   String? oxygenLevel = '';
   String? _selectedItem;
   String? patient_id = '';
-  String? filename;
+  String? filename='Select EKG file';
   String? patient_age = '';
   String? fileurl = '';
   var hospita = ['Hospital 1', 'Hospital 2', 'Hospital 3'];
   String? selected_hospital = 'Hospital 1';
+  final TextEditingController _bloodPressureController =
+      TextEditingController();
+
+  final TextEditingController _temperatureController = TextEditingController();
+  final TextEditingController _oxygenLevelController = TextEditingController();
+  final TextEditingController _patient_idController = TextEditingController();
+  final TextEditingController _patient_ageController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +57,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   ),
                 ),
                 TextFormField(
+                  controller: _patient_idController,
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration: InputDecoration(
                     labelText: 'Patient id',
@@ -76,6 +84,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   ),
                 ),
                 TextFormField(
+                  controller: _patient_ageController,
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration: InputDecoration(
                     labelText: 'Patient Age',
@@ -102,6 +111,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   ),
                 ),
                 TextFormField(
+                  controller: _bloodPressureController,
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration: InputDecoration(
                     labelText: 'Blood Pressure',
@@ -128,6 +138,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   ),
                 ),
                 TextFormField(
+                  controller: _temperatureController,
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration: InputDecoration(
                     labelText: 'Temperature',
@@ -154,6 +165,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   ),
                 ),
                 TextFormField(
+                  controller: _oxygenLevelController,
                   keyboardType: TextInputType.numberWithOptions(decimal: true),
                   decoration: InputDecoration(
                     labelText: 'Oxygen Level',
@@ -295,6 +307,14 @@ class _DetailsScreenState extends State<DetailsScreen> {
           backgroundColor: Colors.green,
           textColor: Colors.white,
           fontSize: 16.0);
+      setState(() {
+        _oxygenLevelController.clear();
+        _bloodPressureController.clear();
+        _patient_ageController.clear();
+        _patient_idController.clear();
+        _temperatureController.clear();
+        fileurl="Select EKG file";
+      });
     }).catchError((error) {
       Fluttertoast.showToast(
           msg: "Error",
