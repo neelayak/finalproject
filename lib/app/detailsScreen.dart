@@ -303,8 +303,8 @@ class _DetailsScreenState extends State<DetailsScreen> {
       'patient_age': patient_age,
       'blood_pressure': bloodPressure,
       'hospital_name': selected_hospital,
-      "file_link": fileurl
-
+      "file_link": fileurl,
+      "timestamp": DateTime.now().toString()
       // Add more fields as needed
     }).then((_) {
       Fluttertoast.showToast(
