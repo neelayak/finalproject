@@ -191,7 +191,8 @@ class _UserDetailsScreenState extends State<UserDetailsScreen> {
         'id': value['id'],
         'patient_age': value['patient_age'],
         'hospital_name': value['hospital_name'],
-        'age': value['age']
+        'age': value['age'],
+        'timestamp': DateTime.now().toString()
       });
       print(data.id);
       list.add(data);

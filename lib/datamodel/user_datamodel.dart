@@ -7,6 +7,7 @@ class UserDataModel {
   String? oxygenLvl;
   String? patientAge;
   String? temperature;
+  String? timestamp;
 
   UserDataModel(
       {this.age,
@@ -16,7 +17,8 @@ class UserDataModel {
       this.id,
       this.oxygenLvl,
       this.patientAge,
-      this.temperature});
+      this.temperature,
+      this.timestamp});
 
   UserDataModel.fromJson(Map<String, dynamic> json) {
     age = json['age'];
@@ -27,6 +29,7 @@ class UserDataModel {
     oxygenLvl = json['oxygen_lvl'];
     patientAge = json['patient_age'];
     temperature = json['temperature'];
+    timestamp = json['timestamp'];
   }
 
   Map<String, dynamic> toJson() {
@@ -39,6 +42,8 @@ class UserDataModel {
     data['oxygen_lvl'] = this.oxygenLvl;
     data['patient_age'] = this.patientAge;
     data['temperature'] = this.temperature;
+    data['timestamp'] = this.timestamp;
+
     return data;
   }
 }
